@@ -1,0 +1,36 @@
+{
+  "name": "insta-feed-provider",
+  "version": "1.0.0",
+  "description": "A simple backend to get your instaFeed, and an endpoint to refresh your long-lived access token.",
+  "main": "index.js",
+  "engines": {
+    "node": "12.18.3"
+  },
+  "private": false,
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Koli14/instaFeedProvider.git"
+  },
+  "author": "Kolos Karácsony",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/Koli14/instaFeedProvider/issues"
+  },
+  "homepage": "https://github.com/Koli14/instaFeedProvider#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "node-cache": "^5.1.2",
+    "node-fetch": "^2.6.1",
+    "norobot": "^1.1.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
