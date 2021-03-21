@@ -7,12 +7,6 @@ const norobot = require('norobot')
 require('dotenv').config()
 
 const app = express()
-const instaAccessToken = process.env.INSTA_ACCES_TOKEN
-const instaId = process.env.INSTA_USER_ID
-const limit = 8
-// See the list of possible fields here: https://developers.facebook.com/docs/instagram-basic-display-api/reference/media#fields
-const fields = 'id,caption,media_url,permalink'
-const baseUrl = `https://graph.instagram.com/v6.0/${instaId}/media?fields=${fields}&limit=${limit}&access_token=`
 
 app.use(cors())
 app.use(norobot(true))
@@ -35,12 +29,19 @@ const checkStatus = response => {
 const ttl = 60 * 15 // 15 minutes
 const myCache = new NodeCache({ stdTTL: ttl, checkperiod: ttl * 0.2 })
 
+const instaAccessToken = process.env.INSTA_ACCES_TOKEN
+const instaId = process.env.INSTA_USER_ID
+const limit = 8 // Limit of the insta media (insta default is 25)
+// See the list of possible fields here: https://developers.facebook.com/docs/instagram-basic-display-api/reference/media#fields
+const fields = 'id,caption,media_url,permalink'
+const baseUrl = `https://graph.instagram.com/v6.0/${instaId}/media?fields=${fields}&limit=${limit}&access_token=${instaAccessToken}`
+
 // You will find your insta feed here:
 app.get('/insta', norobot, async (req, res) => {
   let cachedData = myCache.get('instaResponse')
   if (cachedData === undefined) {
     try {
-      const response = await fetch(baseUrl + instaAccessToken)
+      const response = await fetch(baseUrl)
       checkStatus(response)
       const data = await response.json()
       cachedData = data
